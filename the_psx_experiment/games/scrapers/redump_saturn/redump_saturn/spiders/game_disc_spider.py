@@ -6,6 +6,7 @@ class GameDiscSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [f"{self.BASE_URL}/discs/system/ss/"]
+        self.page = 1
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse_list)
 
@@ -15,7 +16,8 @@ class GameDiscSpider(scrapy.Spider):
         for game_link in game_links:
             yield response.follow(game_link, self.parse_game_disc)
 
-        next_link = response.xpath('//div[@class="pages"]/ul/li/a[text()=">>"]/@href').get()
+        self.page += 1
+        next_link = response.xpath(f'//div[@class="pages"]/ul/li/a[text()="{self.page}"]/@href').get()
         next_link = f"{self.BASE_URL}{next_link}"
         if next_link:
             yield scrapy.Request(url=next_link, callback=self.parse_list)
@@ -53,11 +55,11 @@ class GameDiscSpider(scrapy.Spider):
         discs = zip(serials, editions)
         for disc in discs:
             yield {
-                "title_1": titles[0],
-                "title_2": titles[1],
-                "region": region,
-                "build_date": build_date,
-                "version": version,
-                "serial": disc[0],
-                "edition": disc[1],
+                "Title 1": titles[0],
+                "Title 2": titles[1],
+                "Region": region,
+                "Build date": build_date,
+                "Version": version,
+                "Serial": disc[0],
+                "Edition": disc[1],
             }
