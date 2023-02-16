@@ -24,27 +24,29 @@ class GameReleaseSpider(scrapy.Spider):
     def parse_game(self, response):
         game_div = response.xpath('//div[@id="satengine"]')
         title = "Unknown"
-        title = game_div.xpath('//h1[@class="gametitle"]/text()').get()
+        title = game_div.xpath('.//h1[contains(@class, "gametitle")]/text()').get()
         title_2 = "Unknown"
-        title_2 = game_div.xpath('//h2[@class="tshad1"]/text()').get()
+        title_2 = game_div.xpath('.//h2[@class="tshad1"]/text()').get()
         serial_number = "Unknown"
-        serial_number = game_div.xpath("//h3/text()").get()
+        serial_number = game_div.xpath(".//h3/text()").get()
         region = "Unknown"
         release_date = "Unknown"
         developer = "Unknown"
         publisher = "Unknown"
 
-        coredata_divs = response.xpath('//div[@class="coredata-data1-data"]')
+        coredata_divs = response.xpath('.//div[contains(@class, "coredata-data1-data")]')
         for div in coredata_divs:
-            header = div.xpath('//span[@class="bold"]/text()').get()
+            header = div.xpath('.//span[@class="bold"]/text()').get()
+            header = header.strip()
+            text = div.xpath('.//text()[not(parent::span[@class="bold"])]').getall()
             if header == "Region:":
-                region = div.xpath("//text").get()
+                region = "".join(text).strip()
             if header == "Release Date:":
-                release_date = div.xpath("//text()").get()
+                release_date = "".join(text).strip()
             if header == "Developer:":
-                developer = div.xpath("//text()").get()
+                developer = "".join(text).strip()
             if header == "Publisher:":
-                publisher = div.xpath("//text()").get()
+                publisher = "".join(text).strip()
 
         yield {
             "Title 1": title,
