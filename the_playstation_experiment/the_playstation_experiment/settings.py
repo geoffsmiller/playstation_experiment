@@ -152,6 +152,8 @@ class Base(Configuration):
 class Local(Base):
     DEBUG = True
 
+    CORS_ALLOW_ALL_ORIGINS = True
+
     SECRET_KEY = "django-insecure-78$76ac1&qq!w^(sygmcakxj!wh1(0++8o0r#nr=aj)bo!738@"
 
     DATABASES = {
