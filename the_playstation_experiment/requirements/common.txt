@@ -1,0 +1,7 @@
+Django
+argon2-cffi
+djangorestframework
+django-configurations
+django-cors-headers
+django-storages
+psycopg2

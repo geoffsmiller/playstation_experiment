@@ -1,0 +1,5 @@
+black
+scrapy
+localstack
+awscli
+awscli-local
