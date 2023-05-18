@@ -93,16 +93,34 @@ class Segment(models.Model):
         ]
 
     @property
-    def title(self):
+    def short_title(self):
         if self.segment_type == "Review":
-            return f"{self.episode} | Review: {self.games.first()}"
+            return f"Review: {self.games.first()}"
         elif self.segment_type == "Feature":
-            return f"{self.episode} | Feature: {self.feature_name}"
+            return f"Feature: {self.feature_name}"
         else:
-            return f"{self.episode} | {self.segment_type}"
+            return f"{self.segment_type}"
+
+    @property
+    def title(self):
+        return f"{self.episode} | {self.short_title}"
+
+    @property
+    def start_time_seconds(self):
+        seconds = 0
+        split_start_time = self.start_time.split(":")
+        if len(split_start_time) == 3:
+            seconds += int(split_start_time.pop(0)) * 60 * 60
+        seconds += int(split_start_time.pop(0)) * 60
+        seconds += int(split_start_time.pop(0))
+        return f"{seconds}s"
+
+    @property
+    def youtube_link(self):
+        return f"{self.episode.youtube_link}&t={self.start_time_seconds}"
 
     def __str__(self):
-        return f"{self.episode} {self.title}"
+        return f"{self.title}"
 
 
 class Source(models.Model):
@@ -114,6 +132,9 @@ class Source(models.Model):
     )
     order = models.PositiveIntegerField(
         validators=[MinValueValidator(1)], null=True, blank=False
+    )
+    source_type = models.CharField(
+        max_length=128, choices=SOURCE_TYPE, null=True, blank=False
     )
     description = models.CharField(max_length=1028)
     link = models.URLField()

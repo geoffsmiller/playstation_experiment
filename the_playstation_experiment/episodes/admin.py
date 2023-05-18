@@ -30,6 +30,7 @@ class EpisodeAdmin(admin.ModelAdmin):
 
 class SourceInlineAdmin(admin.TabularInline):
     model = Source
+    fields = ("order", "source_type", "description", "link")
 
 
 @admin.register(Segment)

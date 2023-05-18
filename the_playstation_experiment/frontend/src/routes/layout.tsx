@@ -114,6 +114,7 @@ const ContentContainer = styled.div`
 
     h3 {
         font-size: 2.5vh;
+
         @media (max-width: 1024px) {
             font-size: 2vh
         }

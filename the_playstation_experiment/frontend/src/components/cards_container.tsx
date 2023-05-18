@@ -8,7 +8,7 @@ const CardsContainer = styled.div`
     flex-wrap: wrap;
     width: 95vw;
 
-    h3, p {
+    h2, h3, h4, p {
         text-shadow: 1px 1px 1px #858484;
         color: #1c1c1c;
         margin: 1vh 0 .5vh 0;

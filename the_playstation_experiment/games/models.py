@@ -35,7 +35,19 @@ class Game(models.Model):
 
     @property
     def release_date(self):
-        pass
+        return "1969-12-31"
+
+    @property
+    def platforms(self):
+        return "PlayStation"
+
+    @property
+    def publishers(self):
+        return "Sony"
+
+    @property
+    def developers(self):
+        return "Sony"
 
     def __str__(self):
         return self.name

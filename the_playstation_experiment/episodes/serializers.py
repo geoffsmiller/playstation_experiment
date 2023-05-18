@@ -1,5 +1,6 @@
-from episodes.models import Episode, Segment, Series
 from rest_framework import serializers
+
+from episodes.models import Episode, Segment, Series, Source
 
 
 class SeriesSerializer(serializers.ModelSerializer):
@@ -8,10 +9,26 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "description", "logo")
 
 
+class SourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Source
+        fields = "__all__"
+
+
 class SegmentSerializer(serializers.ModelSerializer):
+    sources = SourceSerializer(many=True)
+
     class Meta:
         model = Segment
-        fields = "__all__"
+        fields = (
+            "id",
+            "title",
+            "short_title",
+            "description",
+            "start_time",
+            "youtube_link",
+            "sources",
+        )
 
 
 class EpisodeSerializer(serializers.ModelSerializer):
@@ -27,6 +44,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
             "release_date",
             "coverage_date_span",
             "order",
+            "youtube_link",
             "supplemental_playlist",
             "series",
             "segments",
