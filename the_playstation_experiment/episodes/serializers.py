@@ -25,6 +25,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "release_date",
+            "coverage_date_span",
             "order",
             "supplemental_playlist",
             "series",

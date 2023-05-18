@@ -10,10 +10,13 @@ class Series(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=1028)
     description = models.TextField()
+    order = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)], null=True, blank=False
+    )
     logo = models.FileField()
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["order"]
         verbose_name_plural = "series"
 
     @property
@@ -37,7 +40,9 @@ class Episode(models.Model):
         Series, on_delete=models.PROTECT, related_name="episodes"
     )
     name = models.CharField(max_length=1028)
-    release_date = models.DateField()
+    release_date = models.DateField(null=True, blank=False)
+    coverage_start_date = models.DateField(null=True, blank=False)
+    coverage_end_date = models.DateField(null=True, blank=False)
     description = models.TextField()
     youtube_link = models.URLField()
     order = models.PositiveIntegerField(
@@ -47,6 +52,12 @@ class Episode(models.Model):
 
     class Meta:
         ordering = ["series", "order"]
+
+    @property
+    def coverage_date_span(self):
+        if self.coverage_start_date == self.coverage_end_date:
+            return f"{self.coverage_start_date}"
+        return f"{self.coverage_start_date} to {self.coverage_end_date}"
 
     def __str__(self):
         return f"{self.series}: {self.name}"
@@ -58,6 +69,7 @@ class Segment(models.Model):
         ("Intro", "Intro"),
         ("Feature", "Feature"),
         ("Review", "Review"),
+        ("Release Roundup", "Release Roundup"),
         ("Outro", "Outro"),
     ]
 
@@ -65,15 +77,8 @@ class Segment(models.Model):
     episode = models.ForeignKey(
         Episode, on_delete=models.PROTECT, related_name="segments"
     )
-    title = models.CharField(max_length=128, null=True, blank=True)
+    feature_name = models.CharField(max_length=128, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    game = models.ForeignKey(
-        "games.Game",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        related_name="segments",
-    )
     segment_type = models.CharField(max_length=128, choices=SEGMENT_TYPES)
     order = models.PositiveIntegerField(
         validators=[MinValueValidator(1)], null=True, blank=False
@@ -86,6 +91,18 @@ class Segment(models.Model):
             models.F("episode__order"),
             "order",
         ]
+
+    @property
+    def title(self):
+        if self.segment_type == "Review":
+            return f"{self.episode} | Review: {self.games.first()}"
+        elif self.segment_type == "Feature":
+            return f"{self.episode} | Feature: {self.feature_name}"
+        else:
+            return f"{self.episode} | {self.segment_type}"
+
+    def __str__(self):
+        return f"{self.episode} {self.title}"
 
 
 class Source(models.Model):

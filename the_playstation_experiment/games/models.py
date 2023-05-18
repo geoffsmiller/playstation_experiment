@@ -25,10 +25,20 @@ class GameCompany(models.Model):
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=1028)
+    segment = models.ForeignKey(
+        "episodes.Segment",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=False,
+        related_name="games",
+    )
 
     @property
     def release_date(self):
         pass
+
+    def __str__(self):
+        return self.name
 
 
 class GameRelease(models.Model):
