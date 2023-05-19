@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from episodes.models import Episode, Segment, Series, Source
+from games.models import Game
 
 
 class SeriesSerializer(serializers.ModelSerializer):
@@ -15,19 +16,36 @@ class SourceSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class NestedGameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = (
+            "id",
+            "name",
+            "release_date",
+            "platforms",
+            "publishers",
+            "developers",
+            "cover_art",
+        )
+
+
 class SegmentSerializer(serializers.ModelSerializer):
     sources = SourceSerializer(many=True)
+    games = NestedGameSerializer(many=True)
 
     class Meta:
         model = Segment
         fields = (
             "id",
+            "segment_type",
             "title",
             "short_title",
             "description",
             "start_time",
             "youtube_link",
             "sources",
+            "games",
         )
 
 
@@ -42,10 +60,12 @@ class EpisodeSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "release_date",
-            "coverage_date_span",
+            "release_date_string",
+            "coverage_date_span_string",
             "order",
             "youtube_link",
-            "supplemental_playlist",
+            "supplemental_playlist_link",
             "series",
             "segments",
+            "thumbnail_image",
         )

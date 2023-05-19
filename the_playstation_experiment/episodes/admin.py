@@ -10,7 +10,8 @@ class SeriesAdmin(admin.ModelAdmin):
 
 class SegmentInlineAdmin(admin.TabularInline):
     model = Segment
-    fields = ("order", "segment_type", "start_time")
+    fields = ("order", "segment_type", "start_time", "short_title")
+    readonly_fields = ("short_title",)
 
 
 @admin.register(Episode)
@@ -24,6 +25,8 @@ class EpisodeAdmin(admin.ModelAdmin):
         "coverage_end_date",
         "description",
         "youtube_link",
+        "supplemental_playlist_link",
+        "thumbnail_image",
     )
     list_display = ("name", "series", "release_date")
 

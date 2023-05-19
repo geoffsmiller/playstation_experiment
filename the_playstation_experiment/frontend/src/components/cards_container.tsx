@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import LinkHover from './link_hover'
 
 const CardsContainer = styled.div`
     margin: 2vh auto;
@@ -7,38 +8,68 @@ const CardsContainer = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 95vw;
-
-    h2, h3, h4, p {
+    height: fit-content;
+ 
+    h2, h3, h4, p, a {
         text-shadow: 1px 1px 1px #858484;
         color: #1c1c1c;
         margin: 1vh 0 .5vh 0;
     }
 
-    h3 {
-        font-size: 2.5vh;
+    h2 {
+        font-size: 2.25vw;
 
         @media (max-width: 1024px) {
-            font-size: 2.25vh
+            font-size: 2.25vw;
         }
         @media (max-width: 768px) {
-            font-size: 2.25vh;
+            font-size: 3vh;
         }
         @media (max-width: 425px) {
-            font-size: 2vh;
+            font-size: 3vh;
         }
     }
 
-    p {
-        font-size: 2vh;
+    h3 {
+        font-size: 1.75vw;
+        margin: 2px;
 
         @media (max-width: 1024px) {
-            font-size: 1.75vh
+            font-size: 1.75vw
         }
         @media (max-width: 768px) {
-            font-size: 1.75vh;
+            font-size: 2.5vw;
         }
         @media (max-width: 425px) {
-            font-size: 1.75vh;
+            font-size: 2.5vw;
+        }
+    }
+
+    h4 {
+        font-size: 1.5vw;
+        margin-left: .5vw;
+
+        @media (max-width: 768px) {
+            font-size: 2vw;
+        }
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    p, a, li {
+        font-size: 1.25vw;
+        margin-left: .5vw;
+
+        @media (max-width: 1024px) {
+            font-size: 1.25vw;
+        }
+        @media (max-width: 768px) {
+            font-size: 2vw;
+        }
+        @media (max-width: 425px) {
+            font-size: 2vw;
         }
     }
 `

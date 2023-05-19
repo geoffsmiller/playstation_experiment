@@ -1,8 +1,11 @@
 from games.models import Game
 from rest_framework import serializers
+from episodes.serializers import SegmentSerializer
 
 
 class GameSerializer(serializers.ModelSerializer):
+    segment = SegmentSerializer()
+
     class Meta:
         model = Game
         fields = (
@@ -12,4 +15,6 @@ class GameSerializer(serializers.ModelSerializer):
             "platforms",
             "publishers",
             "developers",
+            "cover_art",
+            "segment",
         )

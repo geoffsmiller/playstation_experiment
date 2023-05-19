@@ -2,6 +2,8 @@ import * as React from 'react'
 import styled from '@emotion/styled'
 import { useLoaderData, Link, Outlet } from 'react-router-dom'
 import RedLetter from '../components/red_letter'
+import LinkHover from '../components/link_hover'
+import InternalLink from '../components/internal_link'
 
 const LayoutContainer = styled.div`
     display: flex;
@@ -55,6 +57,7 @@ const NavLogo = styled.div`
     @media (max-width: 320px) {
         font-size: 1.5vh;
     }
+    ${LinkHover}
 `
 
 const NavItem = styled.div`
@@ -78,11 +81,11 @@ const NavItem = styled.div`
     @media (max-width: 320px) {
         font-size: 2vh;
     }
+    ${LinkHover}
 `
 
-const NavLink = styled(Link)`
+const NavLink = styled(InternalLink)`
     color: #edecec;
-    text-decoration: none;
 `
 
 const ContentContainer = styled.div`

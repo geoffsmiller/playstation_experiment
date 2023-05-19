@@ -7,6 +7,7 @@ type CardProps = {
 
 const CardContainer = styled.div`
     background-color: #bbbbbb;
+    block-size: fit-content;
     width: 95vw;
     padding: 0 .5vw;
     border: 2px solid #1f1f1f;

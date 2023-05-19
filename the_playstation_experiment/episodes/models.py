@@ -48,16 +48,21 @@ class Episode(models.Model):
     order = models.PositiveIntegerField(
         validators=[MinValueValidator(1)], null=True, blank=False
     )
-    supplemental_playlist = models.URLField()
+    supplemental_playlist_link = models.URLField()
+    thumbnail_image = models.FileField(null=True)
 
     class Meta:
         ordering = ["series", "order"]
 
     @property
-    def coverage_date_span(self):
+    def coverage_date_span_string(self):
         if self.coverage_start_date == self.coverage_end_date:
-            return f"{self.coverage_start_date}"
-        return f"{self.coverage_start_date} to {self.coverage_end_date}"
+            return f"{self.coverage_start_date.strftime('%B %-d, %Y')}"
+        return f"{self.coverage_start_date.strftime('%B %-d, %Y')} to {self.coverage_end_date.strftime('%B %-d, %Y')}"
+
+    @property
+    def release_date_string(self):
+        return f"{self.release_date.strftime('%B %-d, %Y')}"
 
     def __str__(self):
         return f"{self.series}: {self.name}"
@@ -69,6 +74,7 @@ class Segment(models.Model):
         ("Intro", "Intro"),
         ("Feature", "Feature"),
         ("Review", "Review"),
+        ("Chapter", "Chapter"),
         ("Release Roundup", "Release Roundup"),
         ("Outro", "Outro"),
     ]
@@ -124,7 +130,12 @@ class Segment(models.Model):
 
 
 class Source(models.Model):
-    SOURCE_TYPE = [("Audio", "Audio"), ("Video", "Video"), ("Image", "Image")]
+    SOURCE_TYPE = [
+        ("Audio", "Audio"),
+        ("Video", "Video"),
+        ("Image", "Image"),
+        ("Research", "Research"),
+    ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     segment = models.ForeignKey(

@@ -1,8 +1,11 @@
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { useLoaderData, Link } from 'react-router-dom';
 import Card from '../components/card'
 import CardsContainer from '../components/cards_container';
 import GameTable from '../components/game_table';
+import InternalLink from '../components/internal_link';
 
 export async function gamesLoader() {
     const games = await fetch("http://localhost:8000/games/games/");
@@ -14,12 +17,12 @@ export default function Games() {
     return (
         <div>
             <CardsContainer>
-                <h2>Games List</h2>
                 <Card>
+                    <h2>Games List</h2>
                     <GameTable>
                         {response.results.map((game: any) => (
                             <tr>
-                                <td><Link to={`/games/${game.id}`}>{game.name}</Link></td>
+                                <td><InternalLink to={`/games/${game.id}`}><FontAwesomeIcon icon={faLink} /> {game.name}</InternalLink></td>
                                 <td>{game.release_date}</td>
                                 <td>{game.platforms}</td>
                                 <td>{game.developers}</td>

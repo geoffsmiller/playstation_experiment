@@ -13,7 +13,7 @@ export async function seriesLoader() {
 const SeriesGrid = styled.div`
     align-items: center;
     display: grid;
-    grid-template-columns: repeate(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
 `
 
