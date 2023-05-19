@@ -54,25 +54,25 @@ const EpisodeInfo = styled.div`
 `
 
 export default function Episode() {
-    const response = useLoaderData() as any
+    const episode = useLoaderData() as any
     return (
         <CardsContainer>
             <Card>
                 <EpisodeHeaderGrid>
-                    <EpisodeThumbnailDiv><EpisodeThumbnail src={response.thumbnail_image} /></EpisodeThumbnailDiv>
+                    <EpisodeThumbnailDiv><EpisodeThumbnail src={episode.thumbnail_image} /></EpisodeThumbnailDiv>
                     <EpisodeInfo>
-                        <h2>{response.series.name} | {response.name}</h2>
-                        <h3>Release date: {response.release_date_string}</h3>
-                        <h3>Coverage date span: {response.coverage_date_span_string}</h3>
-                        <p>{response.description}</p>
-                        <p><ExternalLink href={`${response.youtube_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> Watch episode on YouTube.</ExternalLink></p>
-                        <p><ExternalLink href={`${response.supplemental_playlist_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> YouTube supplemental material playlist.</ExternalLink></p>
+                        <h2>{episode.series.name} | {episode.name}</h2>
+                        <h3>Release date: {episode.release_date_string}</h3>
+                        <h3>Coverage date span: {episode.coverage_date_span_string}</h3>
+                        <p>{episode.description}</p>
+                        <p><ExternalLink href={`${episode.youtube_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> Watch episode on YouTube.</ExternalLink></p>
+                        <p><ExternalLink href={`${episode.supplemental_playlist_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> YouTube supplemental material playlist.</ExternalLink></p>
                     </EpisodeInfo>
                 </EpisodeHeaderGrid>
             </Card >
             <Card>
                 <h2>Segments</h2>
-                {response.segments.map((segment: any) => (
+                {episode.segments.map((segment: any) => (
                     <div>
                         <h3>{segment.short_title} (<ExternalLink href={`${segment.youtube_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> {segment.start_time})</ExternalLink></h3>
                         {(segment.description) ? (

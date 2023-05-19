@@ -30,9 +30,22 @@ class NestedGameSerializer(serializers.ModelSerializer):
         )
 
 
+class NestedEpisodeSerializer(serializers.ModelSerializer):
+    series = SeriesSerializer()
+
+    class Meta:
+        model = Episode
+        fields = (
+            "id",
+            "name",
+            "series",
+        )
+
+
 class SegmentSerializer(serializers.ModelSerializer):
     sources = SourceSerializer(many=True)
     games = NestedGameSerializer(many=True)
+    episode = NestedEpisodeSerializer()
 
     class Meta:
         model = Segment
@@ -46,6 +59,7 @@ class SegmentSerializer(serializers.ModelSerializer):
             "youtube_link",
             "sources",
             "games",
+            "episode",
         )
 
 

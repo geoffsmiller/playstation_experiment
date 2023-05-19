@@ -1,6 +1,7 @@
 from django.contrib import admin
-from games.models import Game, GameCompany, GamePlatform, GameRelease
+from games.models import Game, GameCompany, GamePlatform, GameRelease, GameRegion
 
+admin.site.register(GameRegion)
 admin.site.register(GamePlatform)
 admin.site.register(GameCompany)
 
