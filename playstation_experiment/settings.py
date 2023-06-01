@@ -145,7 +145,7 @@ class Base(Configuration):
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-    AWS_STORAGE_BUCKET_NAME = "the-playstation-experiment-assets"
+    AWS_STORAGE_BUCKET_NAME = "playstation-experiment-assets"
     AWS_QUERYSTRING_AUTH = False
 
 
