@@ -6,9 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE", "the_playstation_experiment.settings"
-    )
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playstation_experiment.settings")
     os.environ.setdefault("DJANGO_CONFIGURATION", "Local")
     try:
         from configurations.management import execute_from_command_line

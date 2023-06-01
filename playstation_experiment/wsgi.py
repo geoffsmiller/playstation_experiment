@@ -1,5 +1,5 @@
 """
-WSGI config for the_playstation_experiment project.
+WSGI config for playstation_experiment project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'the_playstation_experiment.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playstation_experiment.settings")
 
 application = get_wsgi_application()
