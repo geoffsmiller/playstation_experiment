@@ -9,7 +9,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 
 export async function episodesLoader() {
-    const episodes = await fetch("http://localhost:8000/episodes/episodes/");
+    const episodes = await fetch(`${process.env.REACT_APP_API_URL}/episodes/episodes/`);
     return episodes.json();
 }
 

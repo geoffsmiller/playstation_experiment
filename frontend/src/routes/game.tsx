@@ -9,7 +9,7 @@ import ExternalLink from '../components/external_link';
 import InternalLink from '../components/internal_link';
 
 export async function gameLoader({ params }: any) {
-    const game = await fetch(`http://localhost:8000/games/games/${params.gameId}`);
+    const game = await fetch(`${process.env.REACT_APP_API_URL}/games/games/${params.gameId}`);
     return game.json();
 }
 

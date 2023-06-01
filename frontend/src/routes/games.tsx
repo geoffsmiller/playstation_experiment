@@ -8,7 +8,7 @@ import GameTable from '../components/game_table';
 import InternalLink from '../components/internal_link';
 
 export async function gamesLoader() {
-    const games = await fetch("http://localhost:8000/games/games/");
+    const games = await fetch(`${process.env.REACT_APP_API_URL}/games/games/`);
     return games.json();
 }
 

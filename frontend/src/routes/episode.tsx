@@ -9,7 +9,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import InternalLink from '../components/internal_link';
 
 export async function episodeLoader({ params }: any) {
-    const episode = await fetch(`http://localhost:8000/episodes/episodes/${params.episodeId}`);
+    const episode = await fetch(`${process.env.REACT_APP_API_URL}/episodes/episodes/${params.episodeId}`);
     return episode.json();
 }
 

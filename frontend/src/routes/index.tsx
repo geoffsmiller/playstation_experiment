@@ -6,7 +6,7 @@ import Card from '../components/card'
 import RedLetter from '../components/red_letter'
 
 export async function seriesLoader() {
-    const episodes = await fetch("http://localhost:8000/episodes/series/");
+    const episodes = await fetch(`${process.env.REACT_APP_API_URL}/episodes/series/`);
     return episodes.json();
 }
 
