@@ -24,6 +24,8 @@ class Base(Configuration):
     STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
     ALLOWED_HOSTS = []
 
+    CORS_ALLOW_ALL_ORIGINS = True
+
     INSTALLED_APPS = [
         "django.contrib.admin",
         "django.contrib.auth",
@@ -152,8 +154,6 @@ class Base(Configuration):
 class Local(Base):
     DEBUG = True
 
-    CORS_ALLOW_ALL_ORIGINS = True
-
     SECRET_KEY = "django-insecure-78$76ac1&qq!w^(sygmcakxj!wh1(0++8o0r#nr=aj)bo!738@"
 
     DATABASES = {
@@ -177,7 +177,7 @@ class Production(Base):
     DEBUG = False
 
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOST")]
-    CSRF_TRUSTED_ORIGINS = [f"https://{os.environ['DJANGO_ALLOWED_HOST']}"]
+    CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('DJANGO_ALLOWED_HOST')}"]
     SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
     DATABASES = {
         "default": {

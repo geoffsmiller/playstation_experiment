@@ -5,3 +5,4 @@ django-configurations
 django-cors-headers
 django-storages
 psycopg2
+boto3
