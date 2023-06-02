@@ -177,6 +177,7 @@ class Production(Base):
     DEBUG = False
 
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOST")]
+    CSRF_TRUSTED_ORIGINS = [f"https://{os.environ['DJANGO_ALLOWED_HOST']}"]
     SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
     DATABASES = {
         "default": {
