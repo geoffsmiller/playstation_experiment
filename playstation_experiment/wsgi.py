@@ -11,6 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+import configurations
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playstation_experiment.settings")
+configurations.setup()
 
 application = get_wsgi_application()
