@@ -57,7 +57,6 @@ const NavLogo = styled.div`
     @media (max-width: 320px) {
         font-size: 1.5vh;
     }
-    ${LinkHover}
 `
 
 const NavItem = styled.div`
