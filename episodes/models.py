@@ -65,7 +65,7 @@ class Episode(models.Model):
         return f"{self.release_date.strftime('%B %-d, %Y')}"
 
     def __str__(self):
-        return f"{self.series}: {self.name}"
+        return f"{self.series} | {self.name}"
 
 
 class Segment(models.Model):
@@ -101,15 +101,15 @@ class Segment(models.Model):
     @property
     def short_title(self):
         if self.segment_type == "Review":
-            return f"Review: {self.games.first()}"
+            return f"Review — {' / '.join([game.name for game in self.games.all()])}"
         elif self.segment_type == "Feature":
-            return f"Feature: {self.feature_name}"
+            return f"Feature — {self.feature_name}"
         else:
             return f"{self.segment_type}"
 
     @property
     def title(self):
-        return f"{self.episode} | {self.short_title}"
+        return f"{self.episode}: {self.short_title}"
 
     @property
     def start_time_seconds(self):

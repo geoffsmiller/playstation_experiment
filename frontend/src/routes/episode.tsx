@@ -74,7 +74,7 @@ export default function Episode() {
                 <h2>Segments</h2>
                 {episode.segments.map((segment: any) => (
                     <div>
-                        <h3>{segment.short_title} (<ExternalLink href={`${segment.youtube_link}`} target="_blank"><FontAwesomeIcon icon={faLink} /> {segment.start_time})</ExternalLink></h3>
+                        <h3>{segment.short_title} <ExternalLink href={`${segment.youtube_link}`} target="_blank">(<FontAwesomeIcon icon={faLink} /> {segment.start_time})</ExternalLink></h3>
                         {(segment.description) ? (
                             <>
                                 <h4>Description</h4>
@@ -91,13 +91,16 @@ export default function Episode() {
                                 </ul>
                             </>
                         ) : ''}
-                        <h4>Sources</h4>
-                        <ul>
-                            {segment.sources.map((source: any) => (
-                                <li><ExternalLink href={`${source.link}`} target="__blank"><FontAwesomeIcon icon={faLink} /> {source.description}</ExternalLink></li>
-                            ))}
-                        </ul>
-
+                        {(segment.sources.length) ? (
+                            <>
+                                <h4>Sources</h4>
+                                <ul>
+                                    {segment.sources.map((source: any) => (
+                                        <li><ExternalLink href={`${source.link}`} target="__blank"><FontAwesomeIcon icon={faLink} /> {source.description}</ExternalLink></li>
+                                    ))}
+                                </ul>
+                            </>
+                        ) : ''}
                     </div>
                 ))}
             </Card>

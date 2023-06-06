@@ -81,7 +81,6 @@ const NavItem = styled.div`
     @media (max-width: 320px) {
         font-size: 2vh;
     }
-    ${LinkHover}
 `
 
 const NavLink = styled(InternalLink)`

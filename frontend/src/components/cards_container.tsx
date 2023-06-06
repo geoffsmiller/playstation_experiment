@@ -60,7 +60,6 @@ const CardsContainer = styled.div`
 
     p, a, li {
         font-size: 1.25vw;
-        margin-left: .5vw;
 
         @media (max-width: 1024px) {
             font-size: 1.25vw;
