@@ -35,7 +35,7 @@ class GameRelease(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=1028)
     game = models.ForeignKey(
-        "games.Game", on_delete=models.PROTECT, related_name="releases"
+        "games.Game", on_delete=models.CASCADE, related_name="releases"
     )
     serial_number = models.CharField(max_length=1028)
     release_date = models.DateField()

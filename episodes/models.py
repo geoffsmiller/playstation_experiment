@@ -37,7 +37,7 @@ class Series(models.Model):
 class Episode(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     series = models.ForeignKey(
-        Series, on_delete=models.PROTECT, related_name="episodes"
+        Series, on_delete=models.CASCADE, related_name="episodes"
     )
     name = models.CharField(max_length=1028)
     release_date = models.DateField(null=True, blank=False)
@@ -81,7 +81,7 @@ class Segment(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     episode = models.ForeignKey(
-        Episode, on_delete=models.PROTECT, related_name="segments"
+        Episode, on_delete=models.CASCADE, related_name="segments"
     )
     feature_name = models.CharField(max_length=128, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -137,9 +137,12 @@ class Source(models.Model):
         ("Research", "Research"),
     ]
 
+    class Meta:
+        ordering = [models.F("segment__order"), "order"]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     segment = models.ForeignKey(
-        Segment, on_delete=models.PROTECT, related_name="sources"
+        Segment, on_delete=models.CASCADE, related_name="sources"
     )
     order = models.PositiveIntegerField(
         validators=[MinValueValidator(1)], null=True, blank=False
