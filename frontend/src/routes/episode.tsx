@@ -30,7 +30,7 @@ const EpisodeHeaderGrid = styled.div`
 `
 
 const EpisodeThumbnailDiv = styled.div`
-    margin: 5px;
+    margin: .5vw 0 0 .25vw;
     grid-area: 1 / 1 / 2 / 2;
 `
 

@@ -7,6 +7,7 @@ import Card from '../components/card';
 import CardsContainer from '../components/cards_container';
 import ExternalLink from '../components/external_link';
 import InternalLink from '../components/internal_link';
+import MissingCoverArt from '../images/missing_cover_art.png'
 
 export async function gameLoader({ params }: any) {
     const game = await fetch(`${process.env.REACT_APP_API_URL}/games/games/${params.gameId}`);
@@ -131,7 +132,7 @@ export default function Game() {
         <CardsContainer>
             <Card>
                 <GameHeaderGrid>
-                    <GameCoverArtDiv><GameCoverArt src={game.cover_art} /></GameCoverArtDiv>
+                    <GameCoverArtDiv><GameCoverArt src={(game.cover_art) ? game.cover_art : MissingCoverArt} /></GameCoverArtDiv>
                     <GameInfo>
                         <h2>{game.name}</h2>
                         <h3>Release date: {game.release_date}</h3>
@@ -139,7 +140,7 @@ export default function Game() {
                         <h3>Publishers: {game.publishers}</h3>
                         <h3>Episode: <InternalLink to={`/episodes/${game.segment.episode.id}`}><FontAwesomeIcon icon={faLink} /> {game.segment.episode.series.name} | {game.segment.episode.name}</InternalLink></h3>
                         <h3>Segment: {game.segment.short_title}</h3>
-                        <h3>Cover art source: <ExternalLink href={game.cover_art_source_link} target="_blank"><FontAwesomeIcon icon={faLink} /> {game.cover_art_source_name}</ExternalLink></h3>
+                        {(game.cover_art) ? <h3>Cover art source: <ExternalLink href={game.cover_art_source_link} target="_blank"><FontAwesomeIcon icon={faLink} /> {game.cover_art_source_name}</ExternalLink></h3> : ''}
                     </GameInfo>
                 </GameHeaderGrid>
             </Card>
@@ -147,7 +148,7 @@ export default function Game() {
                 <h2>Releases</h2>
                 {game.releases.map((release: any) => (
                     <GameReleaseGrid>
-                        <GameReleaseCoverArtDiv><GameReleaseCoverArt src={release.cover_art} /></GameReleaseCoverArtDiv>
+                        <GameReleaseCoverArtDiv><GameReleaseCoverArt src={(release.cover_art) ? release.cover_art : MissingCoverArt} /></GameReleaseCoverArtDiv>
                         <GameReleaseInfo>
                             <h3>{release.name}</h3>
                             <h4>Release date: {release.release_date_string}</h4>
@@ -155,7 +156,7 @@ export default function Game() {
                             <h4>Platform: {release.platform.name}</h4>
                             <h4>Serial number: {release.serial_number}</h4>
                             <h4>Publisher: {release.publisher.name}</h4>
-                            <h4>Cover art source: <ExternalLink href={release.cover_art_source_link} target="_blank"><FontAwesomeIcon icon={faLink} /> {release.cover_art_source_name}</ExternalLink></h4>
+                            {(release.cover_art) ? <h4>Cover art source: <ExternalLink href={release.cover_art_source_link} target="_blank"><FontAwesomeIcon icon={faLink} /> {release.cover_art_source_name}</ExternalLink></h4> : ''}
                         </GameReleaseInfo>
                     </GameReleaseGrid>
                 ))}

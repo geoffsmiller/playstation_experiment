@@ -56,6 +56,7 @@ const CardsContainer = styled.div`
 
     ul {
         list-style: none;
+        padding-inline-start: 2.5vw;
     }
 
     p, a, li {

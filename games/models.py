@@ -39,6 +39,7 @@ class GameRelease(models.Model):
     )
     serial_number = models.CharField(max_length=1028)
     release_date = models.DateField()
+    approximate_release_date = models.CharField(max_length=1028, null=True, blank=True)
     region = models.ForeignKey(
         GameRegion, on_delete=models.PROTECT, related_name="games", null=True
     )
@@ -50,13 +51,20 @@ class GameRelease(models.Model):
         GameCompany, on_delete=models.PROTECT, related_name="published_games"
     )
     cover_art = models.FileField(null=True, blank=True)
-    cover_art_source_name = models.CharField(max_length=1028, null=True, blank=False)
-    cover_art_source_link = models.URLField(null=True, blank=False)
+    cover_art_source_name = models.CharField(max_length=1028, null=True, blank=True)
+    cover_art_source_link = models.URLField(null=True, blank=True)
     is_master_release = models.BooleanField(default=False)
+    is_master_cover_art = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["release_date", "-is_master_release"]
 
     @property
     def release_date_string(self):
-        return self.release_date.strftime("%B %-d, %Y")
+        if self.approximate_release_date:
+            return self.approximate_release_date
+        else:
+            return self.release_date.strftime("%B %-d, %Y")
 
 
 class Game(models.Model):
@@ -66,7 +74,7 @@ class Game(models.Model):
         "episodes.Segment",
         on_delete=models.PROTECT,
         null=True,
-        blank=False,
+        blank=True,
         related_name="games",
     )
 
@@ -75,12 +83,23 @@ class Game(models.Model):
 
     @property
     def cover_art(self):
-        if self.releases.filter(is_master_release=True).exists():
-            return self.releases.filter(is_master_release=True).first().cover_art.url
+        cover_art = None
+        if self.releases.filter(is_master_cover_art=True).exists():
+            cover_art = self.releases.filter(is_master_cover_art=True).first().cover_art
+        elif self.releases.filter(is_master_release=True).exists():
+            cover_art = self.releases.filter(is_master_release=True).first().cover_art
+        if cover_art:
+            return cover_art.url
 
     @property
     def cover_art_source_name(self):
-        if self.releases.filter(is_master_release=True).exists():
+        if self.releases.filter(is_master_cover_art=True).exists():
+            return (
+                self.releases.filter(is_master_cover_art=True)
+                .first()
+                .cover_art_source_name
+            )
+        elif self.releases.filter(is_master_release=True).exists():
             return (
                 self.releases.filter(is_master_release=True)
                 .first()
@@ -89,7 +108,13 @@ class Game(models.Model):
 
     @property
     def cover_art_source_link(self):
-        if self.releases.filter(is_master_release=True).exists():
+        if self.releases.filter(is_master_cover_art=True).exists():
+            return (
+                self.releases.filter(is_master_cover_art=True)
+                .first()
+                .cover_art_source_link
+            )
+        elif self.releases.filter(is_master_release=True).exists():
             return (
                 self.releases.filter(is_master_release=True)
                 .first()
@@ -98,14 +123,21 @@ class Game(models.Model):
 
     @property
     def release_date(self):
-        earliest_release_date = "Unknown"
+        release_date = "Unknown"
         if self.releases.count():
-            earliest_release_date = (
-                self.releases.order_by("-release_date")
-                .first()
-                .release_date.strftime("%B %-d, %Y")
-            )
-        return earliest_release_date
+            if self.releases.filter(is_master_release=True).exists():
+                release_date = (
+                    self.releases.filter(is_master_release=True)
+                    .first()
+                    .release_date.strftime("%B %-d, %Y")
+                )
+            else:
+                release_date = (
+                    self.releases.order_by("release_date")
+                    .first()
+                    .release_date.strftime("%B %-d, %Y")
+                )
+        return release_date
 
     @property
     def platforms(self):
