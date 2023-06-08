@@ -10,7 +10,7 @@ const TableContainer = styled.table`
 
     td, th {
         border: 1px solid #1f1f1f;
-        padding: 3px 4px;
+        padding: .1vw .125vw;
         font-size: 1.5vw;
     
         @media (max-width: 1024px) {

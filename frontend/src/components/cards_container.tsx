@@ -2,13 +2,23 @@ import styled from '@emotion/styled'
 import LinkHover from './link_hover'
 
 const CardsContainer = styled.div`
-    margin: 2vh auto;
+    margin: .5vh auto 2vh auto;
     padding: 0 2vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 95vw;
     height: fit-content;
+
+    @media (max-width: 1024px) {
+        margin-bottom: 4vh;
+    }
+    @media (max-width: 768px) {
+        margin-bottom: 8vh;
+    }
+    @media (max-width: 425px) {
+        margin-bottom: 12vh;
+    }
  
     h2, h3, h4, p, a {
         text-shadow: 1px 1px 1px #858484;
@@ -32,7 +42,7 @@ const CardsContainer = styled.div`
 
     h3 {
         font-size: 1.75vw;
-        margin: 2px;
+        margin: 0;
 
         @media (max-width: 1024px) {
             font-size: 1.75vw

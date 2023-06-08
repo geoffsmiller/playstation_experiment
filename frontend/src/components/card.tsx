@@ -12,7 +12,7 @@ const CardContainer = styled.div`
     padding: 0 .5vw;
     border: 2px solid #1f1f1f;
     border-radius: 8px;
-    margin: 7px;
+    margin: .2vw;
     opacity: 90%;
 `
 

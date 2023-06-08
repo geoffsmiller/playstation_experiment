@@ -42,10 +42,33 @@ const SeriesInfo = styled.div`
     }
 `
 
+const IndexContainer = styled.div`
+    margin: .5vh auto 2vh auto;
+    padding: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+
+    @media (max-width: 1024px) {
+        margin-bottom: 4vh;
+    }
+    @media (max-width: 768px) {
+        margin-bottom: 8vh;
+    }
+    @media (max-width: 425px) {
+        margin-bottom: 12vh;
+    }
+
+    h2, h3 {
+        margin: 1vh 1vw 1vh 1vw;
+    }
+`
+
 export default function Index() {
     const response = useLoaderData() as any;
     return (
-        <div>
+        <IndexContainer>
             <h2>THE PLAYSTATION <RedLetter>E</RedLetter>XPERIMENT is a chronogaming project with the aim to exhaustively cover every game for fifth generation video game consoles.</h2>
             <h3>The full family of chronogaming series comprises the titular flagship series as well as companion series covering the Sony PlayStation's two major competitors, the Sega Saturn and Nintendo 64, along with minor competitors such as the 3DO Interactive Multiplayer and NEC PC-FX.</h3>
             <h3>This companion website is an episode guide to the series. You can find links to original sources as well as find information about the games covered on the series.</h3>
@@ -62,6 +85,6 @@ export default function Index() {
                     </Card>
                 ))}
             </CardsContainer>
-        </div>
+        </IndexContainer>
     );
 }

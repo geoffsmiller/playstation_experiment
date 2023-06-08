@@ -19,6 +19,7 @@ const GameHeaderGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
+    margin: .5vh .1vw .5vh .1vw;
 
     @media (max-width: 768px) {
         grid-template-columns: 1fr;
@@ -30,7 +31,7 @@ const GameHeaderGrid = styled.div`
     }
 `
 const GameCoverArtDiv = styled.div`
-    margin: 5px;
+    margin: 0;
     grid-area: 1 / 1 / 2 / 2;
 `
 
@@ -79,7 +80,7 @@ const GameReleaseGrid = styled.div`
     grid-template-rows: 1fr;
     border: 2px solid #1c1c1c;
     border-radius: 8px;
-    margin: 5px;
+    margin: .1vw;
     background-color: #edecec;
 
     p, h3, h4 {
@@ -89,7 +90,7 @@ const GameReleaseGrid = styled.div`
 
 const GameReleaseCoverArtDiv = styled.div`
     margin: auto;
-    padding: 5px;
+    padding: .1vw;
     grid-area: 1 / 1 / 2 / 2;
 `
 
@@ -108,7 +109,7 @@ const GameReleaseInfo = styled.div`
 
     a, h4 {
         font-size: 1vw;
-        margin: 4px;
+        margin: .125vw;
     }
 
     @media (max-width: 768px) {
@@ -124,6 +125,17 @@ const GameReleaseInfo = styled.div`
 
 const RegionFlagImg = styled.img`
     max-width: 1.75vw;
+    border: 1px solid #1f1f1f;
+
+    @media (max-width: 1024px) {
+        max-width: 2vw;
+    }
+    @media (max-width: 768px) {
+        max-width: 2.75vw;
+    }
+    @media (max-width: 425) {
+        max-width: 3vw;
+    }
 `
 
 export default function Game() {
