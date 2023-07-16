@@ -70,6 +70,7 @@ class Episode(models.Model):
 
 class Segment(models.Model):
     SEGMENT_TYPES = [
+        ("Content Warning", "Content Warning"),
         ("OP", "Opening"),
         ("Intro", "Intro"),
         ("Feature", "Feature"),
