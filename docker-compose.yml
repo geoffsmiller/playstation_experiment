@@ -4,7 +4,7 @@ services:
     image: postgres:14.8
     restart: always
     ports:
-      - "5432:5432"
+      - "6432:5432"
     environment:
       POSTGRES_PASSWORD: xsp
       POSTGRES_USER: psx

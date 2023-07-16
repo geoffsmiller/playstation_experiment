@@ -163,7 +163,7 @@ class Local(Base):
             "USER": "psx",
             "PASSWORD": "xsp",
             "HOST": "127.0.0.1",
-            "PORT": "5432",
+            "PORT": "6432",
         }
     }
     AWS_S3_REGION_NAME = "us-east-1"
